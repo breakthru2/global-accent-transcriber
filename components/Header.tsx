@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className="text-center">
       <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-2xl shadow-lg mb-4">
@@ -16,5 +16,3 @@ const Header: React.FC = () => {
     </header>
   );
 };
-
-export default Header;

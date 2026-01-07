@@ -17,6 +17,7 @@ export interface TranscriptChunk {
   text: string;
   confidence: number;
   timestamp: number;
+  isLowConfidence: boolean;
 }
 
 export interface TranscriptionState {
@@ -27,4 +28,5 @@ export interface TranscriptionState {
   status: AppStatus;
   errorMessage: string | null;
   showConfidence: boolean;
+  languageDetected: string;
 }

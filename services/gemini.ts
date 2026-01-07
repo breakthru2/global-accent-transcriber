@@ -10,23 +10,25 @@ export const refineTranscript = async (
 ): Promise<string> => {
   if (mode === TranscriptionMode.RAW || !text.trim()) return text;
 
+  // CLEAN mode is strictly for punctuation and legibility.
+  // STANDARDIZED is the ONLY mode allowed to rewrite syntax.
   const systemInstruction = mode === TranscriptionMode.CLEAN
-    ? "You are a specialized transcription editor. Fix punctuation, capitalization, and minor grammatical errors in the provided text. DO NOT rewrite or 'correct' the speaker's accent, regional phrasing, or vocabulary choices. Maintain the speaker's original voice exactly as is, but make it readable."
-    : "You are a professional scribe. Convert the provided speech-to-text output into clear, standardized English. Smooth out disfluencies (ums, ahs, false starts) and preserve the original meaning while making the syntax follow formal English conventions. Ensure regional idiomatic expressions remain if they provide context, but ensure the overall structure is professional.";
+    ? "You are a transcription editor. Add correct punctuation and capitalization to the text. DO NOT change words, DO NOT fix grammar, DO NOT 'standardize' regional English (Nigerian, Indian, etc.), and DO NOT remove any slang or idioms. Output ONLY the original text with punctuation."
+    : "You are a professional scribe. Standardize the following speech-to-text into formal English prose. Fix syntax errors and remove disfluencies (ums, ahs). ONLY rewrite if the user has explicitly requested standardization. Ensure the core meaning remains identical.";
 
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
-      contents: `Process the following transcription:\n\n${text}`,
+      contents: `Input Transcription: ${text}`,
       config: {
         systemInstruction,
-        temperature: 0.2,
+        temperature: 0.1,
       },
     });
 
     return response.text || text;
   } catch (error) {
-    console.error("Gemini refinement error:", error);
+    console.error("Refinement Error:", error);
     return text;
   }
 };

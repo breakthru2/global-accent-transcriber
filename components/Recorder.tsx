@@ -8,7 +8,7 @@ interface RecorderProps {
   onStop: () => void;
 }
 
-const Recorder: React.FC<RecorderProps> = ({ status, onStart, onStop }) => {
+export const Recorder: React.FC<RecorderProps> = ({ status, onStart, onStop }) => {
   const isListening = status === AppStatus.LISTENING;
 
   return (
@@ -29,7 +29,7 @@ const Recorder: React.FC<RecorderProps> = ({ status, onStart, onStop }) => {
         </button>
       </div>
       
-      <div className="mt-6 text-center">
+      <div className="mt-6 text-center h-8">
         {status === AppStatus.LISTENING && (
           <p className="text-red-500 font-medium flex items-center gap-2">
             <span className="w-2 h-2 bg-red-500 rounded-full pulse"></span>
@@ -37,17 +37,15 @@ const Recorder: React.FC<RecorderProps> = ({ status, onStart, onStop }) => {
           </p>
         )}
         {status === AppStatus.PROCESSING && (
-          <p className="text-indigo-600 font-medium">Processing Audio...</p>
+          <p className="text-indigo-600 font-medium">Analyzing audio...</p>
         )}
         {status === AppStatus.IDLE && (
-          <p className="text-slate-500 font-medium">Click to start transcribing</p>
+          <p className="text-slate-400 font-medium">Click microphone to transcribe</p>
         )}
         {status === AppStatus.ERROR && (
-          <p className="text-red-600 font-medium">Error: Check microphone settings</p>
+          <p className="text-red-600 font-medium text-sm">Error: Check mic permissions</p>
         )}
       </div>
     </div>
   );
 };
-
-export default Recorder;
