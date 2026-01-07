@@ -1,26 +1,23 @@
 
-# GlobalAccent Speech-to-Text
+# GlobalAccent Speech-to-Text (Serverless)
 
-A production-ready, accent-robust STT application.
+A high-quality, accent-robust STT application that runs entirely in the browser.
 
-## How it Works
-1. **Frontend (React)**: Captures audio in 5-second chunks using the Web Audio API.
-2. **Backend (FastAPI + Whisper)**: Processes chunks locally using the open-source Whisper model.
-3. **Refinement (Gemini)**: Uses Google Gemini Flash to polish transcripts while respecting regional linguistic nuances.
+## Architecture
+- **No Backend Required**: This app uses the Google Gemini Live API directly from the browser via WebSockets.
+- **Real-time Streaming**: Audio is streamed in 16kHz Mono PCM format for instant transcription.
+- **GitHub Pages Ready**: Can be hosted as a static site.
 
-## Local Setup (Backend)
-1. Install Python 3.9+
-2. Install FFmpeg (required by Whisper):
-   - Mac: `brew install ffmpeg`
-   - Windows: `choco install ffmpeg`
-3. Install dependencies: `pip install -r backend/requirements.txt`
-4. Run server: `python backend/main.py`
+## How to Deploy to GitHub Pages
+1. Push this code to a GitHub repository.
+2. Go to **Settings > Pages**.
+3. Select the branch you want to deploy from (e.g., `main`).
+4. Ensure your environment has access to the Gemini API Key.
 
-## Features
-- **Accent Robust**: Unlike many commercial APIs that default to US/UK English, Whisper's training data is globally diverse.
-- **Privacy First**: Audio is processed in memory and never stored.
-- **Intelligent Refinement**: "Cleaned" mode uses AI to fix punctuation without "Americanizing" your speech.
+## Key Features
+- **Verbatim Accuracy**: Tuned to ignore "ums" and "ahs" while preserving regional vocabulary (Nigerian English, Indian English, etc.).
+- **Live Refinement**: Uses Gemini Flash to add punctuation and capitalization after you finish speaking.
+- **Privacy**: No audio is stored or sent to a private server. Everything goes directly to the GenAI endpoint.
 
-## Limitations & Trade-offs
-- **Hardware**: Running Whisper locally requires at least 4GB RAM. A GPU (NVIDIA) is highly recommended for real-time performance.
-- **Latency**: Chunk-based processing means there's a ~1-2 second lag per segment.
+## Browser Support
+- Requires a modern browser with `MediaDevices.getUserMedia` and `AudioContext` support (Chrome, Edge, Safari 14.1+, Firefox).
