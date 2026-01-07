@@ -1,11 +1,26 @@
-<div align="center">
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+# GlobalAccent Speech-to-Text
 
-  <h1>Built with AI Studio</h2>
+A production-ready, accent-robust STT application.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## How it Works
+1. **Frontend (React)**: Captures audio in 5-second chunks using the Web Audio API.
+2. **Backend (FastAPI + Whisper)**: Processes chunks locally using the open-source Whisper model.
+3. **Refinement (Gemini)**: Uses Google Gemini Flash to polish transcripts while respecting regional linguistic nuances.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Local Setup (Backend)
+1. Install Python 3.9+
+2. Install FFmpeg (required by Whisper):
+   - Mac: `brew install ffmpeg`
+   - Windows: `choco install ffmpeg`
+3. Install dependencies: `pip install -r backend/requirements.txt`
+4. Run server: `python backend/main.py`
 
-</div>
+## Features
+- **Accent Robust**: Unlike many commercial APIs that default to US/UK English, Whisper's training data is globally diverse.
+- **Privacy First**: Audio is processed in memory and never stored.
+- **Intelligent Refinement**: "Cleaned" mode uses AI to fix punctuation without "Americanizing" your speech.
+
+## Limitations & Trade-offs
+- **Hardware**: Running Whisper locally requires at least 4GB RAM. A GPU (NVIDIA) is highly recommended for real-time performance.
+- **Latency**: Chunk-based processing means there's a ~1-2 second lag per segment.
