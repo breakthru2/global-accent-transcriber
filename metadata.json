@@ -1,7 +1,7 @@
 {
-  "name": "GlobalAccent STT",
-  "description": "A high-quality, accent-robust speech-to-text application designed for global English speakers, using open-source Whisper and Gemini for intelligent refinement.",
   "requestFramePermissions": [
     "microphone"
-  ]
+  ],
+  "name": "",
+  "description": ""
 }
